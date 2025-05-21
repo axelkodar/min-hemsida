@@ -81,13 +81,13 @@
 
   <!-- Bakgrundsvideo -->
   <video id="bg-video" autoplay loop muted playsinline>
-    <source src="videos/stuktesth264.MP4" type="video/mp4">
+    <source src="videos/Timeline 1.mp4" type="video/mp4">
     Din webbläsare stödjer inte videouppspelning.
   </video>
 
   <!-- Innehåll ovanpå videon -->
   <div class="content">
-    <h1>Hej! Det här är min fullskärmssida med haha</h1>
+    <h1>Hej! Det här är min fullskärmssida med hihi</h1>
 
       <!-- Interaktiv bild -->
   <img id="trigger-image" src="assets/förstasida.png" alt="Klicka mig" />
@@ -101,7 +101,7 @@
     width="120" 
     height=auto
     style="display: none;">
-    <source src="assets/New project.mp4" type="video/mp4">
+    <source src="videos/flip1.mp4" type="video/mp4">
     Din webbläsare stödjer inte videouppspelning.
   </video>
   </div>
@@ -109,18 +109,38 @@
   const image = document.getElementById('trigger-image');
   const video = document.getElementById('overlay-video');
 
-  image.addEventListener('click', () => {
-    image.style.display = 'none';     // Göm bilden
-    video.style.display = 'block';    // Visa videon
-    video.play();                     // Spela videon
+  let state = 0; // 0 = första bilden, 1 = andra bilden
 
-    video.onended = () => {
-      video.style.display = 'none';   // Göm videon efteråt
-      image.src = 'assets/andrasida.png'; // Byt till ny bild
-      image.style.display = 'block';  // Visa nya bilden
-    };
+  image.addEventListener('click', () => {
+    image.style.display = 'none';
+    video.style.display = 'block';
+
+    if (state === 0) {
+      video.querySelector('source').src = 'flip1.mp4';
+      video.load();
+      video.play();
+
+      video.onended = () => {
+        video.style.display = 'none';
+        image.src = 'assets/andrasida.png';
+        image.style.display = 'block';
+        state = 1;
+      };
+    } else {
+      video.querySelector('source').src = 'videos/flip2.1.mp4'; // ← Lägg till den här videon i assets-mappen
+      video.load();
+      video.play();
+
+      video.onended = () => {
+        video.style.display = 'none';
+        image.src = 'assets/förstasida.png';
+        image.style.display = 'block';
+        state = 0;
+      };
+    }
   });
 </script>
+
 
 </body>
 </html>
