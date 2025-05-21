@@ -45,6 +45,8 @@
     }
     
     #overlay-video {
+      max-width: 120px;
+      height: auto;
       display: none;
       position: relative;
       z-index: 2;
@@ -81,13 +83,21 @@
 
   <!-- Innehåll ovanpå videon -->
   <div class="content">
-    <h1>Hej! Det här är min fullskärmssida med videohmmm</h1>
+    <h1>Hej! Det här är min fullskärmssida med videowow</h1>
 
       <!-- Interaktiv bild -->
   <img id="trigger-image" src="assets/förstasida.png" alt="Klicka mig" />
 
   <!-- Video som visas ovanpå när man klickar -->
-  <video id="overlay-video" width="320" height="240">
+  <video 
+    id="overlay-video" 
+    muted
+    autoplay
+    playsinline
+    controls="false"
+    width="120" 
+    height=auto
+    style="display: none;">
     <source src="assets/New project.mp4" type="video/mp4">
     Din webbläsare stödjer inte videouppspelning.
   </video>
