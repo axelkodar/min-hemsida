@@ -36,6 +36,22 @@
       z-index: -1;
     }
 
+    #trigger-image {
+      width: 120px;
+      cursor: pointer;
+      z-index: 2;
+      position: relative;
+      margin-top: 20px;
+    }
+    
+    #overlay-video {
+      display: none;
+      position: relative;
+      z-index: 2;
+      margin-top: 20px;
+    }
+
+    
     .content {
       position: relative;
       z-index: 1;
@@ -65,8 +81,33 @@
 
   <!-- Innehåll ovanpå videon -->
   <div class="content">
-    <h1>Hej! Det här är min fullskärmssida med videoaaa</h1>
+    <h1>Hej! Det här är min fullskärmssida med videohmmm</h1>
+
+      <!-- Interaktiv bild -->
+  <img id="trigger-image" src="assets/förstasida.png" alt="Klicka mig" />
+
+  <!-- Video som visas ovanpå när man klickar -->
+  <video id="overlay-video" width="320" height="240">
+    <source src="assets/New project.mp4" type="video/mp4">
+    Din webbläsare stödjer inte videouppspelning.
+  </video>
   </div>
+<script>
+  const image = document.getElementById('trigger-image');
+  const video = document.getElementById('overlay-video');
+
+  image.addEventListener('click', () => {
+    image.style.display = 'none';     // Göm bilden
+    video.style.display = 'block';    // Visa videon
+    video.play();                     // Spela videon
+
+    video.onended = () => {
+      video.style.display = 'none';   // Göm videon efteråt
+      image.src = 'assets/andrasida.png'; // Byt till ny bild
+      image.style.display = 'block';  // Visa nya bilden
+    };
+  });
+</script>
 
 </body>
 </html>
