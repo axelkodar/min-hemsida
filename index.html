@@ -71,6 +71,10 @@
       font-size: clamp(1.5rem, 5vw, 3rem);
       text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
     }
+    video::-webkit-media-controls {
+      display: none !important;
+    }
+
   </style>
 </head>
 <body>
@@ -83,7 +87,7 @@
 
   <!-- Innehåll ovanpå videon -->
   <div class="content">
-    <h1>Hej! Det här är min fullskärmssida med videowow</h1>
+    <h1>Hej! Det här är min fullskärmssida med videoojoj</h1>
 
       <!-- Interaktiv bild -->
   <img id="trigger-image" src="assets/förstasida.png" alt="Klicka mig" />
@@ -94,7 +98,6 @@
     muted
     autoplay
     playsinline
-    controls="false"
     width="120" 
     height=auto
     style="display: none;">
