@@ -76,12 +76,12 @@
     }
     .fade-in {
   opacity: 0;
-  animation: fadeIn 0.05s forwards;
+  animation: fadeIn 0.55s forwards;
 }
 
 .fade-out {
   opacity: 1;
-  animation: fadeOut 0.05s forwards;
+  animation: fadeOut 0.55s forwards;
 }
 
 @keyframes fadeIn {
@@ -163,12 +163,12 @@
 
           setTimeout(() => {
             image.classList.remove('fade-in');
-          }, 50);
+          }, 550);
 
           state = state === 0 ? 1 : 0;
-        }, 50);
+        }, 550);
       };
-    }, 50); // Fade-out duration för bild
+    }, 550); // Fade-out duration för bild
   });
 </script>
 
