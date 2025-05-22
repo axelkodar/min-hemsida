@@ -74,27 +74,7 @@
     video::-webkit-media-controls {
       display: none !important;
     }
-    .fade-in {
-  opacity: 0;
-  animation: fadeIn 0.55s forwards;
-}
-
-.fade-out {
-  opacity: 1;
-  animation: fadeOut 0.55s forwards;
-}
-
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeOut {
-  to {
-    opacity: 0;
-  }
-}
+    
 
 
   </style>
@@ -128,48 +108,34 @@
   </video>
   </div>
 <script>
+<script>
   const image = document.getElementById('trigger-image');
   const video = document.getElementById('overlay-video');
-
   let state = 0;
 
   image.addEventListener('click', () => {
-    // Start fade out på bilden
-    image.classList.add('fade-out');
+    const source = video.querySelector('source');
+    source.src = state === 0 ? 'videos/flip1.mp4' : 'videos/flip2.1.mp4';
 
-    setTimeout(() => {
+    video.load();
+    video.style.display = 'block';
+
+    // Visa bild tills videon faktiskt börjat spela
+    video.onplaying = () => {
       image.style.display = 'none';
-      image.classList.remove('fade-out');
+    };
 
-      // Visa rätt video
-      const source = video.querySelector('source');
-      source.src = state === 0 ? 'videos/flip1.mp4' : 'videos/flip2.1.mp4';
-      video.load();
-      video.style.display = 'block';
-      video.classList.add('fade-in');
-      video.play();
+    video.play();
 
-      video.onended = () => {
-        video.classList.remove('fade-in');
-        video.classList.add('fade-out');
-
-        setTimeout(() => {
-          video.style.display = 'none';
-          video.classList.remove('fade-out');
-          
-          image.src = state === 0 ? 'assets/andrasida.png' : 'assets/förstasida.png';
-          image.style.display = 'block';
-          image.classList.add('fade-in');
-
-          setTimeout(() => {
-            image.classList.remove('fade-in');
-          }, 550);
-
-          state = state === 0 ? 1 : 0;
-        }, 550);
-      };
-    }, 550); // Fade-out duration för bild
+    video.onended = () => {
+      video.style.display = 'none';
+      image.src = state === 0 ? 'assets/andrasida.png' : 'assets/förstasida.png';
+      image.style.display = 'block';
+      state = state === 0 ? 1 : 0;
+    };
   });
+</script>
+
 </script>
 
 
