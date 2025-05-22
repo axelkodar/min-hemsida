@@ -108,6 +108,7 @@
   </video>
   </div>
 
+
 <script>
   const image = document.getElementById('trigger-image');
   const video = document.getElementById('overlay-video');
@@ -117,20 +118,21 @@
     const source = video.querySelector('source');
     source.src = state === 0 ? 'videos/flip1.mp4' : 'videos/flip2.1.mp4';
 
-    video.load();
-    video.style.display = 'block';
+    video.load(); // Startar laddning av videon, men visar den inte än!
 
-    // Visa bild tills videon faktiskt börjat spela
+    // När videon faktiskt börjar spela:
     video.onplaying = () => {
-      image.style.display = 'none';
+      image.style.display = 'none';         // Ta bort bilden
+      video.style.display = 'block';        // Visa videon
     };
 
-    video.play();
+    video.play(); // Startar uppspelning
 
+    // När videon är klar:
     video.onended = () => {
-      video.style.display = 'none';
+      video.style.display = 'none';         // Dölj videon
       image.src = state === 0 ? 'assets/andrasida.png' : 'assets/förstasida.png';
-      image.style.display = 'block';
+      image.style.display = 'block';        // Visa nästa bild
       state = state === 0 ? 1 : 0;
     };
   });
