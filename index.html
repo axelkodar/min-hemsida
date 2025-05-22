@@ -100,43 +100,61 @@
     muted
     autoplay
     playsinline
+    preload="auto"  <!-- NYTT -->
     width="120" 
     height=auto
     style="display: none;">
     <source src="videos/flip1.mp4" type="video/mp4">
     Din webbläsare stödjer inte videouppspelning.
   </video>
+
+    
+  <video 
+    id="video2"
+    muted
+    playsinline
+    preload="auto"
+    width="120"
+    height="auto"
+    style="display: none;">
+    <source src="videos/flip2.1.mp4" type="video/mp4">
+  </video>
   </div>
 
 
 <script>
   const image = document.getElementById('trigger-image');
-  const video = document.getElementById('overlay-video');
+  const video1 = document.getElementById('video1');
+  const video2 = document.getElementById('video2');
   let state = 0;
 
   image.addEventListener('click', () => {
-    const source = video.querySelector('source');
-    source.src = state === 0 ? 'videos/flip1.mp4' : 'videos/flip2.1.mp4';
+    image.style.display = 'none'; // göm bilden direkt
 
-    video.load(); // Startar laddning av videon, men visar den inte än!
+    if (state === 0) {
+      video1.style.display = 'block';
+      video1.play();
 
-    // När videon faktiskt börjar spela:
-    video.onplaying = () => {
-      image.style.display = 'none';         // Ta bort bilden
-      video.style.display = 'block';        // Visa videon
-    };
+      video1.onended = () => {
+        video1.style.display = 'none';
+        image.src = 'assets/andrasida.png';
+        image.style.display = 'block';
+        state = 1;
+      };
+    } else {
+      video2.style.display = 'block';
+      video2.play();
 
-    video.play(); // Startar uppspelning
-
-    // När videon är klar:
-    video.onended = () => {
-      video.style.display = 'none';         // Dölj videon
-      image.src = state === 0 ? 'assets/andrasida.png' : 'assets/förstasida.png';
-      image.style.display = 'block';        // Visa nästa bild
-      state = state === 0 ? 1 : 0;
-    };
+      video2.onended = () => {
+        video2.style.display = 'none';
+        image.src = 'assets/förstasida.png';
+        image.style.display = 'block';
+        state = 0;
+      };
+    }
   });
 </script>
+
 
 
 
