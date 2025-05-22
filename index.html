@@ -74,6 +74,15 @@
     video::-webkit-media-controls {
       display: none !important;
     }
+    #video1,
+    #video2 {
+      max-width: 120px;
+      height: auto;
+      position: relative;
+      z-index: 2;
+      margin-top: 20px;
+    }
+
     
 
 
@@ -101,8 +110,6 @@
     playsinline
     preload="metadata"  <!-- NYTT -->
     poster=""
-    width="120" 
-    height=auto
     style="display: none;">
     <source src="videos/flip1.mp4" type="video/mp4">
     Din webbläsare stödjer inte videouppspelning.
@@ -115,8 +122,6 @@
     playsinline
     preload="metadata"  <!-- NYTT -->
     poster=""
-    width="120"
-    height="auto"
     style="display: none;">
     <source src="videos/flip2.1.mp4" type="video/mp4">
   </video>
