@@ -74,6 +74,28 @@
     video::-webkit-media-controls {
       display: none !important;
     }
+    .fade-in {
+  opacity: 0;
+  animation: fadeIn 0.05s forwards;
+}
+
+.fade-out {
+  opacity: 1;
+  animation: fadeOut 0.05s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+  }
+}
+
 
   </style>
 </head>
@@ -109,44 +131,47 @@
   const image = document.getElementById('trigger-image');
   const video = document.getElementById('overlay-video');
 
-  let state = 0; // 0 = första bilden, 1 = andra bilden
+  let state = 0;
 
   image.addEventListener('click', () => {
-    image.style.display = 'none';
-    video.style.display = 'block';
+    // Start fade out på bilden
+    image.classList.add('fade-out');
 
-    if (state === 0) {
-      video.querySelector('source').src = 'videos/flip1.mp4';
-      
-      /*video.style.display = 'block';*/
+    setTimeout(() => {
+      image.style.display = 'none';
+      image.classList.remove('fade-out');
+
+      // Visa rätt video
+      const source = video.querySelector('source');
+      source.src = state === 0 ? 'videos/flip1.mp4' : 'videos/flip2.1.mp4';
       video.load();
-      
-      video.onplaying = () => {
-        image.style.display = 'none';
-      };
-
-video.play();
-
-      video.onended = () => {
-        video.style.display = 'none';
-        image.src = 'assets/andrasida.png';
-        image.style.display = 'block';
-        state = 1;
-      };
-    } else {
-      video.querySelector('source').src = 'videos/flip2.1.mp4'; // ← Lägg till den här videon i assets-mappen
-      video.load();
+      video.style.display = 'block';
+      video.classList.add('fade-in');
       video.play();
 
       video.onended = () => {
-        video.style.display = 'none';
-        image.src = 'assets/förstasida.png';
-        image.style.display = 'block';
-        state = 0;
+        video.classList.remove('fade-in');
+        video.classList.add('fade-out');
+
+        setTimeout(() => {
+          video.style.display = 'none';
+          video.classList.remove('fade-out');
+          
+          image.src = state === 0 ? 'assets/andrasida.png' : 'assets/förstasida.png';
+          image.style.display = 'block';
+          image.classList.add('fade-in');
+
+          setTimeout(() => {
+            image.classList.remove('fade-in');
+          }, 50);
+
+          state = state === 0 ? 1 : 0;
+        }, 50);
       };
-    }
+    }, 50); // Fade-out duration för bild
   });
 </script>
+
 
 
 </body>
