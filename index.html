@@ -113,7 +113,10 @@
   const image = document.getElementById('trigger-image');
   const video = document.getElementById('overlay-video');
   let state = 0;
-
+  window.addEventListener('load', () => {
+    video1.load();
+    video2.load();
+  });
   image.addEventListener('click', () => {
     const source = video.querySelector('source');
     source.src = state === 0 ? 'videos/flip1.mp4' : 'videos/flip2.1.mp4';
