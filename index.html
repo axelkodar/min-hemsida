@@ -39,7 +39,7 @@
       width: 95vw;
       max-width: 550px;
       height: auto;
-      margin-top: 80px; /* Flytta upp bilden/videon lite */
+      margin-top: 80px;
       cursor: pointer;
       z-index: 2;
       position: relative;
@@ -47,10 +47,12 @@
       -webkit-user-select: none;
       user-select: none;
       touch-action: manipulation;
+      transform: scale(1) !important;
+      transition: none !important;
     }
-
+    
     #trigger-image:active {
-      transform: none;
+      transform: scale(1) !important;
     }
 
     .content {
