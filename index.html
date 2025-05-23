@@ -22,6 +22,7 @@
       height: 100%;
       overflow: hidden;
       font-family: sans-serif;
+      touch-action: manipulation;
     }
 
     video#bg-video {
@@ -74,6 +75,20 @@
 
     video::-webkit-media-controls {
       display: none !important;
+    }
+    #trigger-image {
+      -webkit-touch-callout: none;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-user-select: none;
+      user-select: none;
+      touch-action: manipulation;
+      transform: none !important;
+      transition: none !important;
+      image-rendering: pixelated; /* valfritt: stoppar suddig animation */
+    }
+    #trigger-image:active {
+      transform: none !important;
+      opacity: 1 !important;
     }
   </style>
 </head>
