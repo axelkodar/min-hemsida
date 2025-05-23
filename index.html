@@ -35,19 +35,19 @@
     }
   
     #trigger-image,
-    #overlay-video {
-      width: 98vw; /* Nästan hela skärmen */
-      height: auto; /* Behåll proportionerna */
-      cursor: pointer;
-      z-index: 2;
-      position: relative;
-      margin-top: 20px;
-      -webkit-tap-highlight-color: transparent;
-      -webkit-user-select: none;
-      user-select: none;
-      touch-action: manipulation;
-      max-width: 600px;
-    }
+      #overlay-video {
+        width: 98vw;
+        height: auto;
+        cursor: pointer;
+        z-index: 2;
+        position: relative;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-user-select: none;
+        user-select: none;
+        touch-action: manipulation;
+        max-width: 600px;
+      }
+
   
     #trigger-image:active {
       transform: none;
@@ -57,14 +57,16 @@
       position: relative;
       z-index: 1;
       height: 100vh;
+      padding-top: 20px; /* Lyft innehållet uppåt */
       display: flex;
-      justify-content: center;
+      justify-content: flex-start; /* Flytta innehåll uppåt i flexbox */
       align-items: center;
       flex-direction: column;
       color: white;
       text-align: center;
       background: rgba(0, 0, 0, 0.3);
     }
+
   
     h1 {
       font-size: clamp(1.5rem, 5vw, 3rem);
