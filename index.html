@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <title>Min Fullskärmssida med Video</title>
   <style>
     * {
@@ -13,18 +13,17 @@
       box-sizing: border-box;
     }
 
-    html {
+    html, body {
       height: 100%;
       background-color: #141414; /* Ger svart statusfält i Safari */
+      -webkit-text-size-adjust: 100%; /* Förhindrar textzoom på iOS */
     }
-    
+
     body {
-      height: 100%;
       overflow: hidden;
       font-family: sans-serif;
       /* INTE background-color här */
     }
-
 
     video#bg-video {
       position: fixed;
@@ -36,24 +35,31 @@
       z-index: -1;
     }
 
-    #trigger-image {
-      width: 120px;
-      cursor: pointer;
-      z-index: 2;
-      position: relative;
-      margin-top: 20px;
-    }
-    
+    #trigger-image,
     #overlay-video {
-      max-width: 120px;
+      width: 120px;
       height: auto;
-      display: none;
+      margin-top: 20px;
+      cursor: pointer;
       position: relative;
       z-index: 2;
-      margin-top: 20px;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-user-select: none;
+      user-select: none;
+      touch-action: manipulation;
+      -webkit-touch-callout: none;
     }
 
-    
+    /* Undvik skalning på tryck i iOS Safari */
+    #trigger-image:active {
+      transform: scale(1);
+      transition: none;
+    }
+
+    #overlay-video {
+      display: none;
+    }
+
     .content {
       position: relative;
       z-index: 1;
@@ -71,91 +77,65 @@
       font-size: clamp(1.5rem, 5vw, 3rem);
       text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
     }
+
     video::-webkit-media-controls {
       display: none !important;
     }
-    #trigger-image {
-      width: 120px;
-      cursor: pointer;
-      z-index: 2;
-      position: relative;
-      margin-top: 20px;
-    
-      -webkit-tap-highlight-color: transparent;
-      -webkit-user-select: none;
-      user-select: none;
-      touch-action: manipulation;
-    }
-    
-    #trigger-image:active {
-      transform: none;
-    }
-
-    
-
-
   </style>
 </head>
 <body>
 
   <!-- Bakgrundsvideo -->
   <video id="bg-video" autoplay loop muted playsinline>
-    <source src="videos/bkgf.mp4" type="video/mp4">
+    <source src="videos/bkgf.mp4" type="video/mp4" />
     Din webbläsare stödjer inte videouppspelning.
   </video>
 
   <!-- Innehåll ovanpå videon -->
   <div class="content">
-   
+    <!-- Interaktiv bild -->
+    <img id="trigger-image" src="assets/förstasida.png" alt="Klicka mig" />
 
-      <!-- Interaktiv bild -->
-  <img id="trigger-image" src="assets/förstasida.png" alt="Klicka mig" />
-
-  <!-- Video som visas ovanpå när man klickar -->
-  <video 
-    id="overlay-video" 
-    muted
-    autoplay
-    playsinline
-    width="120" 
-    height=auto
-    style="display: none;">
-    <source src="videos/flip1.mp4" type="video/mp4">
-    Din webbläsare stödjer inte videouppspelning.
-  </video>
+    <!-- Video som visas ovanpå när man klickar -->
+    <video 
+      id="overlay-video" 
+      muted
+      autoplay
+      playsinline
+      width="120"
+      height="auto"
+    >
+      <source src="videos/flip1.mp4" type="video/mp4" />
+      Din webbläsare stödjer inte videouppspelning.
+    </video>
   </div>
 
+  <script>
+    const image = document.getElementById('trigger-image');
+    const video = document.getElementById('overlay-video');
+    let state = 0;
 
-<script>
-  const image = document.getElementById('trigger-image');
-  const video = document.getElementById('overlay-video');
-  let state = 0;
-  image.addEventListener('click', () => {
-    const source = video.querySelector('source');
-    source.src = state === 0 ? 'videos/flip1.mp4' : 'videos/flip2.1.mp4';
+    image.addEventListener('click', () => {
+      const source = video.querySelector('source');
+      source.src = state === 0 ? 'videos/flip1.mp4' : 'videos/flip2.1.mp4';
 
-    video.load(); // Startar laddning av videon, men visar den inte än!
+      video.load(); // Startar laddning av videon
 
-    // När videon faktiskt börjar spela:
-    video.onplaying = () => {
-      image.style.display = 'none';         // Ta bort bilden
-      video.style.display = 'block';        // Visa videon
-    };
+      video.onplaying = () => {
+        image.style.display = 'none';   // Dölj bilden
+        video.style.display = 'block';  // Visa videon
+      };
 
-    video.play(); // Startar uppspelning
+      video.play();
 
-    // När videon är klar:
-    video.onended = () => {
-      video.style.display = 'none';         // Dölj videon
-      image.src = state === 0 ? 'assets/andrasida.png' : 'assets/förstasida.png';
-      image.style.display = 'block';        // Visa nästa bild
-      state = state === 0 ? 1 : 0;
-    };
-  });
-</script>
-
-
-
+      video.onended = () => {
+        video.style.display = 'none';   // Dölj videon
+        image.src = state === 0 ? 'assets/andrasida.png' : 'assets/förstasida.png';
+        image.style.display = 'block';  // Visa bilden igen
+        state = state === 0 ? 1 : 0;
+      };
+    });
+  </script>
 
 </body>
 </html>
