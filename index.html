@@ -12,20 +12,18 @@
       padding: 0;
       box-sizing: border-box;
     }
-
+  
     html {
       height: 100%;
       background-color: #141414; /* Ger svart statusfält i Safari */
     }
-    
+  
     body {
       height: 100%;
       overflow: hidden;
       font-family: sans-serif;
-      /* INTE background-color här */
     }
-
-
+  
     video#bg-video {
       position: fixed;
       top: 0;
@@ -35,7 +33,7 @@
       object-fit: cover;
       z-index: -1;
     }
-
+  
     #trigger-image,
     #overlay-video {
       width: 98vw; /* Nästan hela skärmen */
@@ -48,11 +46,13 @@
       -webkit-user-select: none;
       user-select: none;
       touch-action: manipulation;
-      max-width: 600px; /* valfri maxbredd för att undvika att bli för stor på desktop */
+      max-width: 600px;
     }
-
-
-    
+  
+    #trigger-image:active {
+      transform: none;
+    }
+  
     .content {
       position: relative;
       z-index: 1;
@@ -63,37 +63,19 @@
       flex-direction: column;
       color: white;
       text-align: center;
-      background: rgba(0, 0, 0, 0.3); /* Mörk overlay för bättre läsbarhet */
+      background: rgba(0, 0, 0, 0.3);
     }
-
+  
     h1 {
       font-size: clamp(1.5rem, 5vw, 3rem);
       text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
     }
+  
     video::-webkit-media-controls {
       display: none !important;
     }
-    #trigger-image {
-      width: 120px;
-      cursor: pointer;
-      z-index: 2;
-      position: relative;
-      margin-top: 20px;
-    
-      -webkit-tap-highlight-color: transparent;
-      -webkit-user-select: none;
-      user-select: none;
-      touch-action: manipulation;
-    }
-    
-    #trigger-image:active {
-      transform: none;
-    }
-
-    
-
-
   </style>
+
 </head>
 <body>
 
