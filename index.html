@@ -36,22 +36,21 @@
       z-index: -1;
     }
 
-    #trigger-image {
-      width: 120px;
+    #trigger-image,
+    #overlay-video {
+      width: 98vw; /* Nästan hela skärmen */
+      height: auto; /* Behåll proportionerna */
       cursor: pointer;
       z-index: 2;
       position: relative;
       margin-top: 20px;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-user-select: none;
+      user-select: none;
+      touch-action: manipulation;
+      max-width: 600px; /* valfri maxbredd för att undvika att bli för stor på desktop */
     }
-    
-    #overlay-video {
-      max-width: 120px;
-      height: auto;
-      display: none;
-      position: relative;
-      z-index: 2;
-      margin-top: 20px;
-    }
+
 
     
     .content {
