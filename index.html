@@ -35,28 +35,7 @@
       z-index: -1;
     }
 
-    #trigger-image {
-      width: 95vw;
-      max-width: 550px;
-      aspect-ratio: 1.6; /* proportion */
-      background-image: url('assets/förstasida.png');
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      margin-top: 80px;
-      cursor: pointer;
-      z-index: 2;
-      position: relative;
-      -webkit-touch-callout: none;
-      -webkit-tap-highlight-color: transparent;
-      -webkit-user-select: none;
-      user-select: none;
-      touch-action: manipulation;
-      transition: none !important;
-      transform: none !important;
-    }
-
-
+    #trigger-image,
     #overlay-video {
       width: 95vw;
       max-width: 550px;
@@ -72,8 +51,6 @@
       transform: scale(1) !important;
       transition: none !important;
     }
-
-
     
     #trigger-image:active {
       transform: scale(1) !important;
@@ -135,8 +112,7 @@
   <div class="content">
 
     <!-- Interaktiv bild -->
-    <div id="trigger-image" role="button" aria-label="Klicka mig"></div>
-
+    <img id="trigger-image" src="assets/förstasida.png" alt="Klicka mig" />
 
     <!-- Video som visas ovanpå när man klickar -->
     <video 
@@ -174,7 +150,7 @@
 
       video.onended = () => {
         video.style.display = 'none';
-        image.style.backgroundImage = `url(${state === 0 ? 'assets/andrasida.png' : 'assets/förstasida.png'})`;
+        image.src = state === 0 ? 'assets/andrasida.png' : 'assets/förstasida.png';
         image.style.display = 'block';
         state = state === 0 ? 1 : 0;
       };
