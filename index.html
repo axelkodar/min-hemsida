@@ -130,7 +130,11 @@
     const image = document.getElementById('trigger-image');
     const video = document.getElementById('overlay-video');
     let state = 0;
-
+    // Ta bort iOS klick-effekt helt
+    image.addEventListener('touchstart', (e) => {
+      e.preventDefault(); // Förhindrar inbyggd zoom/blink-effekt
+      image.click();      // Triggar vår klicklogik manuellt
+    }, { passive: false });
     image.addEventListener('click', () => {
       const source = video.querySelector('source');
       source.src = state === 0 ? 'videos/flip1.mp4' : 'videos/flip2.1.mp4';
