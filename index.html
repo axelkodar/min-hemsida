@@ -38,7 +38,7 @@
     #trigger-image {
       width: 95vw;
       max-width: 550px;
-      aspect-ratio: 1.6; /* Justera efter din bilds proportion */
+      aspect-ratio: 1.6; /* proportion */
       background-image: url('assets/förstasida.png');
       background-size: contain;
       background-repeat: no-repeat;
@@ -55,6 +55,7 @@
       transition: none !important;
       transform: none !important;
     }
+
 
     #overlay-video {
       width: 95vw;
@@ -134,7 +135,8 @@
   <div class="content">
 
     <!-- Interaktiv bild -->
-    <img id="trigger-image" src="assets/förstasida.png" alt="Klicka mig" />
+    <div id="trigger-image" role="button" aria-label="Klicka mig"></div>
+
 
     <!-- Video som visas ovanpå när man klickar -->
     <video 
