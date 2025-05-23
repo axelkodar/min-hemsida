@@ -12,18 +12,18 @@
       padding: 0;
       box-sizing: border-box;
     }
-  
+
     html {
       height: 100%;
       background-color: #141414; /* Ger svart statusfält i Safari */
     }
-  
+
     body {
       height: 100%;
       overflow: hidden;
       font-family: sans-serif;
     }
-  
+
     video#bg-video {
       position: fixed;
       top: 0;
@@ -33,12 +33,13 @@
       object-fit: cover;
       z-index: -1;
     }
-  
+
     #trigger-image,
     #overlay-video {
       width: 90vw;
+      max-width: 500px;
       height: auto;
-      margin-top: 10px;
+      margin-top: 2px; /* Flytta upp bilden/videon lite */
       cursor: pointer;
       z-index: 2;
       position: relative;
@@ -46,21 +47,19 @@
       -webkit-user-select: none;
       user-select: none;
       touch-action: manipulation;
-      max-width: 500px;
     }
 
-  
     #trigger-image:active {
       transform: none;
     }
-  
+
     .content {
       position: relative;
       z-index: 1;
       height: 100vh;
-      padding-top: 10px; /* Lyft innehållet uppåt */
+      padding-top: 5px; /* Minska mellanrum uppåt */
       display: flex;
-      justify-content: flex-start; /* Flytta innehåll uppåt i flexbox */
+      justify-content: flex-start; /* Placera innehåll högt upp */
       align-items: center;
       flex-direction: column;
       color: white;
@@ -68,17 +67,15 @@
       background: rgba(0, 0, 0, 0.3);
     }
 
-  
     h1 {
       font-size: clamp(1.5rem, 5vw, 3rem);
       text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
     }
-  
+
     video::-webkit-media-controls {
       display: none !important;
     }
   </style>
-
 </head>
 <body>
 
@@ -90,54 +87,48 @@
 
   <!-- Innehåll ovanpå videon -->
   <div class="content">
-   
 
-      <!-- Interaktiv bild -->
-  <img id="trigger-image" src="assets/förstasida.png" alt="Klicka mig" />
+    <!-- Interaktiv bild -->
+    <img id="trigger-image" src="assets/förstasida.png" alt="Klicka mig" />
 
-  <!-- Video som visas ovanpå när man klickar -->
-  <video 
-    id="overlay-video" 
-    muted
-    autoplay
-    playsinline
-    style="display: none;">
-    <source src="videos/flip1.mp4" type="video/mp4">
-    Din webbläsare stödjer inte videouppspelning.
-  </video>
+    <!-- Video som visas ovanpå när man klickar -->
+    <video 
+      id="overlay-video" 
+      muted
+      autoplay
+      playsinline
+      style="display: none;">
+      <source src="videos/flip1.mp4" type="video/mp4">
+      Din webbläsare stödjer inte videouppspelning.
+    </video>
   </div>
 
+  <script>
+    const image = document.getElementById('trigger-image');
+    const video = document.getElementById('overlay-video');
+    let state = 0;
 
-<script>
-  const image = document.getElementById('trigger-image');
-  const video = document.getElementById('overlay-video');
-  let state = 0;
-  image.addEventListener('click', () => {
-    const source = video.querySelector('source');
-    source.src = state === 0 ? 'videos/flip1.mp4' : 'videos/flip2.1.mp4';
+    image.addEventListener('click', () => {
+      const source = video.querySelector('source');
+      source.src = state === 0 ? 'videos/flip1.mp4' : 'videos/flip2.1.mp4';
 
-    video.load(); // Startar laddning av videon, men visar den inte än!
+      video.load(); // Startar laddning av videon
 
-    // När videon faktiskt börjar spela:
-    video.onplaying = () => {
-      image.style.display = 'none';         // Ta bort bilden
-      video.style.display = 'block';        // Visa videon
-    };
+      video.onplaying = () => {
+        image.style.display = 'none';         // Dölj bilden
+        video.style.display = 'block';        // Visa videon
+      };
 
-    video.play(); // Startar uppspelning
+      video.play(); // Startar uppspelning
 
-    // När videon är klar:
-    video.onended = () => {
-      video.style.display = 'none';         // Dölj videon
-      image.src = state === 0 ? 'assets/andrasida.png' : 'assets/förstasida.png';
-      image.style.display = 'block';        // Visa nästa bild
-      state = state === 0 ? 1 : 0;
-    };
-  });
-</script>
-
-
-
+      video.onended = () => {
+        video.style.display = 'none';
+        image.src = state === 0 ? 'assets/andrasida.png' : 'assets/förstasida.png';
+        image.style.display = 'block';
+        state = state === 0 ? 1 : 0;
+      };
+    });
+  </script>
 
 </body>
 </html>
